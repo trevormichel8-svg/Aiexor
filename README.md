@@ -31,9 +31,9 @@ A premium AI brand, perfect for startups, automation tools, SaaS platforms, and 
 ## 📊 GitHub Stats  
 <div align="center">
 
-![Stats](https://github-readme-stats.vercel.app/api?username=trevormichel8&show_icons=true&theme=tokyonight&hide_border=true)  
+![Stats](https://github-readme-stats.vercel.app/api?username=trevormichel8-svg&show_icons=true&theme=tokyonight&hide_border=true)  
 
-![Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=trevormichel8&layout=compact&theme=tokyonight&hide_border=true)
+![Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=trevormichel8-svg&layout=compact&theme=tokyonight&hide_border=true)
 
 </div>
 
@@ -42,7 +42,7 @@ A premium AI brand, perfect for startups, automation tools, SaaS platforms, and 
 ## 🏆 GitHub Achievements  
 <div align="center">
   
-![Trophies](https://github-profile-trophy.vercel.app/?username=trevormichel8&theme=tokyonight&no-frame=true&no-bg=true&margin-w=12)
+![Trophies](https://github-profile-trophy.vercel.app/?username=trevormichel8-svg&theme=tokyonight&no-frame=true&no-bg=true&margin-w=12)
 
 </div>
 
@@ -70,7 +70,7 @@ A premium AI brand, perfect for startups, automation tools, SaaS platforms, and 
     https://dev.to/trevor_7ec2492e5f89b4dc33/how-ai-tools-are-transforming-how-we-create-content-4lif
 
 - 🔗 **GitHub Pages:**  
-  https://trevormichel8.github.io/aiexorcom.github.io/
+  https://trevormichel8-svg.github.io/aiexorcom.github.io/
 
 
 ---
@@ -78,7 +78,7 @@ A premium AI brand, perfect for startups, automation tools, SaaS platforms, and 
 ## 📈 Visitor Counter  
 <div align="center">
 
-![Visitor Count](https://komarev.com/ghpvc/?username=trevormichel8&color=blue&style=for-the-badge)
+![Visitor Count](https://komarev.com/ghpvc/?username=trevormichel8-svg&color=blue&style=for-the-badge)
 
 </div>
 
