@@ -19,17 +19,24 @@
   <meta name="twitter:description" content="Aiexor.com — rare, brandable AI domain. Perfect for AI startup founders and SaaS creators." />
 
   <style>
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
+      height: 100%;
       font-family: "Segoe UI", Arial, sans-serif;
       background: radial-gradient(circle at top, #0f0f11, #000);
       color: #e8e8e8;
+    }
+
+    body {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      min-height: 100vh;
       padding: 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
       animation: fadeIn 1s ease-in-out;
+      position: relative; /* for floating buttons */
     }
 
     @keyframes fadeIn {
@@ -37,14 +44,28 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    header {
+      text-align: center;
+      padding: 20px 0;
+      flex-shrink: 0;
+    }
+
+    header img {
+      max-width: 200px;
+      height: auto;
+    }
+
     .card {
       background: #111216;
       max-width: 650px;
+      width: 100%;
       padding: 40px;
       border-radius: 16px;
       box-shadow: 0 0 35px rgba(0, 0, 0, 0.6);
       text-align: center;
       animation: fadeIn 1.3s ease;
+      margin-top: 20px;
+      flex-grow: 1;
     }
 
     h1 {
@@ -82,6 +103,7 @@
       font-size: 1.2rem;
       font-weight: 600;
       transition: 0.3s;
+      text-align: center;
     }
 
     .buy {
@@ -112,19 +134,66 @@
       word-wrap: break-word;
     }
 
-    header {
-      text-align: center;
-      padding: 20px;
+    /* Floating Buttons for Mobile */
+    .floating-buttons {
+      display: none;
+      position: fixed;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px); /* start below screen */
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1000;
+      width: 90%;
+      max-width: 400px;
+      opacity: 0;
+      animation: slideUp 0.6s forwards 0.5s; /* slide in */
     }
 
-    header img {
-      max-width: 200px;
+    .floating-buttons a {
+      display: block;
+      padding: 15px;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      transition: 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    }
+
+    .floating-buttons a.buy {
+      background: linear-gradient(135deg, #0084ff, #00bfff);
+      color: #fff;
+    }
+
+    .floating-buttons a.buy:hover {
+      background: linear-gradient(135deg, #2aa0ff, #41c7ff);
+    }
+
+    .floating-buttons a.offer {
+      background: #1e1f24;
+      color: #ddd;
+      border: 1px solid #333;
+    }
+
+    .floating-buttons a.offer:hover {
+      background: #2b2d33;
+    }
+
+    @keyframes slideUp {
+      to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+      }
     }
 
     @media (max-width: 480px) {
       h1 { font-size: 2.1rem; }
-      p { font-size: 1rem; }
+      p { font-size: 1rem; line-height: 1.4rem; }
       .btn { font-size: 1.05rem; padding: 13px; }
+      .card { padding: 25px; }
+      .floating-buttons { display: flex; }
     }
   </style>
 </head>
@@ -157,6 +226,15 @@
       Contact: <br> <strong>aiexorcom7@gmail.com</strong>
     </div>
   </div>
+
+  <!-- Floating Buttons for Mobile -->
+  <div class="floating-buttons">
+    <a class="buy" href="https://www.paypal.me/michel924/3000" target="_blank" rel="noopener noreferrer">
+      🔥 Buy Now — $3000
+    </a>
+    <a class="offer" href="mailto:aiexorcom7@gmail.com?subject=Offer%20for%20Aiexor.com&body=Hi,%20I'm%20interested%20in%20making%20an%20offer%20for%20Aiexor.com.">
+      💬 Make an Offer
+    </a>
+  </div>
 </body>
 </html>
-
