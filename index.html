@@ -46,9 +46,15 @@
     body {
       margin: 0;
       font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      background: linear-gradient(180deg, #071022 0%, #071426 50%);
+      background: radial-gradient(circle at top, #1f2937 0%, #020617 45%, #020617 100%);
       color: #e6eef6;
       -webkit-font-smoothing: antialiased;
+      animation: fadeInBody 0.5s ease-out;
+    }
+
+    @keyframes fadeInBody {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     a { color: inherit; }
@@ -61,10 +67,11 @@
     }
 
     .card {
-      background: var(--card);
+      background: linear-gradient(145deg, rgba(15,23,42,0.95), rgba(15,23,42,0.8));
       padding: 24px;
       border-radius: 16px;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+      border: 1px solid rgba(148,163,184,0.2);
     }
 
     header {
@@ -74,10 +81,16 @@
     }
 
     header img {
-      width: 48px;
+      width: 52px;
       height: auto;
-      border-radius: 8px;
-      filter: drop-shadow(0 0 12px var(--accent));
+      border-radius: 10px;
+      filter: drop-shadow(0 0 18px rgba(94,234,212,0.8));
+      transition: transform .15s ease, filter .15s ease;
+    }
+
+    header img:hover {
+      transform: translateY(-1px) scale(1.02);
+      filter: drop-shadow(0 0 22px rgba(94,234,212,1));
     }
 
     header .brand {
@@ -125,7 +138,12 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      transition: transform .08s ease, box-shadow .08s ease, background .08s ease;
+      transition: transform .08s ease, box-shadow .08s ease, background .08s ease, opacity .08s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+      opacity: 0.92;
     }
 
     .btn-primary {
@@ -148,9 +166,10 @@
     }
 
     .box {
-      background: rgba(255,255,255,0.04);
+      background: rgba(15,23,42,0.9);
       padding: 16px;
       border-radius: 12px;
+      border: 1px solid rgba(148,163,184,0.25);
     }
 
     .section { margin-top: 28px; }
@@ -162,11 +181,12 @@
     }
 
     .feature {
-      background: rgba(255,255,255,0.04);
+      background: rgba(15,23,42,0.7);
       padding: 16px;
       border-radius: 12px;
       font-size: 15px;
       line-height: 1.5;
+      border: 1px solid rgba(30,64,175,0.4);
     }
 
     .feature h3 {
@@ -183,6 +203,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 10px;
+      align-items: center;
     }
 
     footer a {
@@ -215,6 +236,7 @@
       max-width: 500px;
       width: 100%;
       box-shadow: 0 18px 40px rgba(0,0,0,0.7);
+      border: 1px solid rgba(148,163,184,0.3);
     }
 
     .modal-card h2 {
@@ -259,6 +281,7 @@
       justify-content: space-between;
       gap: 8px;
       z-index: 998;
+      backdrop-filter: blur(10px);
     }
 
     .mobile-cta span {
@@ -369,6 +392,13 @@
             aiexorcom7@gmail.com
           </a>
         </div>
+
+        <div style="display:flex; gap:14px; flex-wrap:wrap;">
+          <a href="/best-ai-domains-2025.html">Best AI Domains 2025</a>
+          <a href="/ai-brand-name-guide.html">AI Brand Name Guide</a>
+          <a href="/short-ai-domains-benefits.html">Short AI Domains Benefits</a>
+        </div>
+
         <div>© Aiexor — Domain owner</div>
       </footer>
 
@@ -419,7 +449,6 @@
     function openOfferModal() {
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
-      // focus first field
       const nameField = document.getElementById('nameInput');
       if (nameField) nameField.focus();
     }
@@ -429,11 +458,15 @@
       modal.setAttribute('aria-hidden', 'true');
     }
 
-    offerBtn.addEventListener('click', openOfferModal);
+    if (offerBtn) {
+      offerBtn.addEventListener('click', openOfferModal);
+    }
 
-    questionBtn.addEventListener('click', () => {
-      window.location.href = "mailto:aiexorcom7@gmail.com?subject=Question%20about%20Aiexor.com";
-    });
+    if (questionBtn) {
+      questionBtn.addEventListener('click', () => {
+        window.location.href = "mailto:aiexorcom7@gmail.com?subject=Question%20about%20Aiexor.com";
+      });
+    }
 
     // Close modal on backdrop click
     modal.addEventListener('click', (e) => {
@@ -450,7 +483,6 @@
     });
 
     function buyNow() {
-      // Direct PayPal.me link, amount optional
       const defaultAmount = 3000;
       const amount = prompt('Enter purchase amount in USD:', defaultAmount);
       if (!amount) return;
