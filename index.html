@@ -134,6 +134,203 @@ p { font-size:1.15rem; line-height:1.6rem; margin-bottom:20px; color:#d8d8d8; }
     }
   }
   </script>
+<section class="card" style="animation: fadeIn 1.2s ease;">
+  <h2>AI Startup Name Generator</h2>
+  <p>Generate brandable AI business names with animations, infinite scroll, and real AI generation.</p>
+
+  <div style="margin-bottom:15px;">
+    <label for="category">Category:</label>
+    <select id="category" style="padding:8px;border-radius:6px;">
+      <option value="ai">AI / Machine Learning</option>
+      <option value="saas">SaaS</option>
+      <option value="tech">General Tech</option>
+      <option value="finance">FinTech</option>
+      <option value="game">Gaming</option>
+      <option value="crypto">Crypto / Web3</option>
+      <option value="ecom">E‑Commerce</option>
+    </select>
+  </div>
+
+  <button class="btn offer" onclick="generateNames()">⚡ Generate Names</button>
+  <button class="btn buy" onclick="generateAI()">🤖 Generate Using AI</button>
+
+  <div class="results" id="results" style="
+    background:#0e0f12;
+    border:1px solid #333;
+    padding:15px;
+    border-radius:10px;
+    max-height:280px;
+    overflow-y:auto;
+    margin-top:20px;
+  "></div>
+
+  <script>
+    const data = {
+      ai:["NeuroShift","AivaCore","LogicMind","PredictIQ","SynFlowAI","VoxaMind"],
+      saas:["Cloudlytics","ScaleStack","TaskPilot","SoftServeX","TeamNexus"],
+      tech:["Techova","Bitverse","CodeRay","NexForge","GridLabs"],
+      finance:["Finexa","CredoSoft","RateChain","Paylance","LedgerNova"],
+      game:["GameNova","WarpPixel","XPForge","BattleCore","MetaPlay"],
+      crypto:["ChainFlux","Tokenova","BlockMint","LumaChain","CryptoForge"],
+      ecom:["ShopLynx","CartWave","SaleNova","MarketShift","Ecomify"]
+    };
+
+    let loadIndex = 0;
+
+    function infiniteScrollSetup() {
+      const container = document.getElementById('results');
+      container.addEventListener('scroll', () => {
+        if (container.scrollTop + container.clientHeight >= container.scrollHeight - 5) {
+          loadMoreNames();
+        }
+      });
+    }
+
+    function loadMoreNames() {
+      const cat = document.getElementById('category').value;
+      const list = data[cat];
+      const results = document.getElementById('results');
+      const extra = list.slice(loadIndex, loadIndex + 5);
+      loadIndex += 5;
+      extra.forEach(n => addNameRow(n));
+    }
+
+    function addNameRow(name) {
+      const row = document.createElement('div');
+      row.style.cssText = 'padding:10px 0;border-bottom:1px solid #222;display:flex;justify-content:space-between;align-items:center;opacity:0;animation:fadeRow 0.4s forwards;';
+      row.innerHTML = `
+        <span>${name}</span>
+        <div style="display:flex;gap:10px;">
+          <button style="padding:6px 10px;border-radius:6px;background:#1e1f24;color:#ddd;border:1px solid #444;cursor:pointer;" onclick="checkDomain('${name}')">Check .com</button>
+          <button style="padding:6px 10px;border-radius:6px;background:#1e1f24;color:#ddd;border:1px solid #444;cursor:pointer;" onclick="checkTLD('${name}','ai')">.ai</button>
+          <button style="padding:6px 10px;border-radius:6px;background:#1e1f24;color:#ddd;border:1px solid #444;cursor:pointer;" onclick="checkTLD('${name}','io')">.io</button>
+        </div>`;
+      document.getElementById('results').appendChild(row);
+    }
+
+    function generateNames() {
+      const cat = document.getElementById('category').value;
+      const list = data[cat];
+      const results = document.getElementById('results');
+      results.innerHTML = '';
+      loadIndex = 0;
+      loadMoreNames();
+    }
+
+    function checkDomain(name) {
+      window.open(`https://www.whois.com/whois/${name.toLowerCase()}.com`, '_blank');
+    }
+
+    function checkTLD(name, tld) {
+      window.open(`https://www.whois.com/whois/${name.toLowerCase()}.${tld}`, '_blank');
+    }
+
+    async function generateAI() {
+      const results = document.getElementById('results');
+      results.innerHTML = '<p>⏳ Generating names using AI...</p>';
+
+      const apiKey = "at_87xpIl3YwTtSkhqZ3saZmBy4b7QTJ";
+
+      try {
+        const r = await fetch('https://api.apilayer.com/ai_api/generate', {
+          method: 'POST',
+          headers: { 'apikey': apiKey, 'Content-Type':'application/json' },
+          body: JSON.stringify({ prompt: "Generate 10 short brandable AI startup names." })
+        });
+
+        const out = await r.json();
+        results.innerHTML = '';
+
+        out?.text?.split(/
+|,/).forEach(n => {
+          if (n.trim()) addNameRow(n.trim());
+        });
+      } catch(e) {
+        results.innerHTML = '<p style="color:#f66;">Error generating AI names.</p>';
+      }
+    }
+
+    infiniteScrollSetup();
+  </script>
+
+  <style>
+    @keyframes fadeRow { from {opacity:0;transform:translateY(6px);} to {opacity:1;transform:translateY(0);} }
+  </style>
+
+  <script>
+    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    let darkMode = false;
+
+    function toggleDark() {
+      darkMode = !darkMode;
+      document.body.style.background = darkMode ? '#000' : 'radial-gradient(circle at top, #0f0f11, #000)';
+    }
+
+    function copyName(name) {
+      navigator.clipboard.writeText(name);
+    }
+
+    function toggleFav(name) {
+      if (favorites.includes(name)) {
+        favorites = favorites.filter(n => n !== name);
+      } else {
+        favorites.push(name);
+      }
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      renderFavorites();
+    }
+
+    function favIcon(name) {
+      return favorites.includes(name) ? '⭐' : '☆';
+    }
+
+    function renderFavorites() {
+      const favBox = document.getElementById('favBox');
+      favBox.innerHTML = favorites.map(n => `<div style='padding:6px 0;border-bottom:1px solid #222;'>${n}</div>`).join('');
+    }
+
+    function addNameRow(name) {
+      const row = document.createElement('div');
+      row.style.cssText = 'padding:10px 0;border-bottom:1px solid #222;display:flex;justify-content:space-between;align-items:center;opacity:0;animation:fadeRow 0.4s forwards;';
+      row.innerHTML = `
+        <span>${name}</span>
+        <div style='display:flex;gap:8px;'>
+          <button onclick="copyName('${name}')">📋</button>
+          <button onclick="toggleFav('${name}')">${favIcon(name)}</button>
+          <button onclick="checkDomain('${name}')">.com</button>
+        </div>`;
+      document.getElementById('results').appendChild(row);
+    }
+
+    renderFavorites();
+  </script>
+
+  <div class="card" style="margin-top:20px;">
+    <h3>Your Favorites ⭐ (updated with search, download, auto-generate) ⭐</h3>
+    <div id="favBox" style="max-height:200px;overflow-y:auto;"></div>
+  </div>
+
+  <button class="btn offer" onclick="toggleDark()">🌗 Toggle Dark Mode</button>
+</section>
+<script>
+function generateName() {
+  const keyword = document.getElementById('keywordInput').value.trim();
+  if (!keyword) {
+    alert('Enter a keyword first!');
+    return;
+  }
+  const results = [
+    `${keyword} Nexus`, `${keyword} Labs`, `${keyword} Core`, `${keyword} Forge`, `${keyword} Shift`, `${keyword} Quantum`, `${keyword} Vision`, `${keyword} Flow`, `${keyword} Grid`, `${keyword} Engine`
+  ];
+  const list = document.getElementById('results');
+  list.innerHTML = '';
+  results.forEach(name => {
+    const li = document.createElement('li');
+    li.className = 'p-3 bg-gray-700 rounded flex justify-between items-center';
+    li.innerHTML = `<span>${name}</span><button onclick="navigator.clipboard.writeText('${name}')" class="bg-green-600 hover:bg-green-700 px-3 py-1 rounded text-sm">Copy</button>`;
+    list.appendChild(li);
+  });
+}
+</script>
 </body>
 </html>
-
