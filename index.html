@@ -306,11 +306,32 @@ p { font-size:1.15rem; line-height:1.6rem; margin-bottom:20px; color:#d8d8d8; }
   </script>
 
   <div class="card" style="margin-top:20px;">
+    <input type="text" id="favSearch" placeholder="Search favorites..." oninput="filterFavs()" style="width:100%;padding:8px;margin-bottom:10px;border-radius:6px;background:#1e1f24;border:1px solid #333;color:#ccc;" />
     <h3>Your Favorites ⭐ (updated with search, download, auto-generate) ⭐</h3>
     <div id="favBox" style="max-height:200px;overflow-y:auto;"></div>
   </div>
 
   <button class="btn offer" onclick="toggleDark()">🌗 Toggle Dark Mode</button>
+  <script>
+    function filterFavs() {
+      const q = document.getElementById('favSearch').value.toLowerCase();
+      document.querySelectorAll('#favBox div').forEach(d => {
+        d.style.display = d.textContent.toLowerCase().includes(q) ? '' : 'none';
+      });
+    }
+    function downloadFavorites() {
+      const blob = new Blob([favorites.join("
+")], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'favorites.txt';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+    function autoGenerate() { generateNames(); }
+    window.onload = autoGenerate;
+  </script>
 </section>
 <script>
 function generateName() {
