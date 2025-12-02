@@ -1,17 +1,19 @@
-name: Generate Sitemap
+name: Generate sitemap & robots
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Set up Node.js
@@ -25,10 +27,13 @@ jobs:
       - name: Generate sitemap
         run: node scripts/generate-sitemap.js
 
-      - name: Commit and push sitemap.xml
+      - name: Generate robots.txt
+        run: node scripts/generate-robots.js
+
+      - name: Commit and push
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git add sitemap.xml
-          git commit -m "Automated sitemap update" || echo "No changes to commit"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add sitemap.xml robots.txt
+          git commit -m "Automated sitemap/robots update" || echo "No changes to commit"
           git push
