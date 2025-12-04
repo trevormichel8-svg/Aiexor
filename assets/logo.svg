@@ -1,42 +1,33 @@
-<svg width="280" height="70" viewBox="0 0 280 70" xmlns="http://www.w3.org/2000/svg">
+<svg width="300" height="80" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Luxury Gold → White Gradient -->
-    <linearGradient id="goldWhite" x1="0%" y1="0%" x2="100%" y2="0%">
-      <!-- Deep champagne gold -->
-      <stop offset="0%" stop-color="#d8b26f"/>
-      <!-- Soft premium gold -->
-      <stop offset="45%" stop-color="#f5e6c8"/>
-      <!-- Smooth luxury white finish -->
-      <stop offset="100%" stop-color="#ffffff"/>
+    <!-- 24K GOLD → TURQUOISE GRADIENT -->
+    <linearGradient id="goldshift" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFD700"/>      <!-- pure 24k gold -->
+      <stop offset="45%" stop-color="#FFB300"/>     <!-- warm deep gold -->
+      <stop offset="75%" stop-color="#00E6D1"/>     <!-- turquoise glow -->
+      <stop offset="100%" stop-color="#00C4FF"/>    <!-- turquoise-blue -->
     </linearGradient>
 
-    <!-- Soft shadow for premium depth -->
-    <filter id="softShadow" x="-40%" y="-40%" width="180%" height="180%">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-      <feOffset dx="0" dy="2" result="offsetblur"/>
-      <feComponentTransfer>
-        <feFuncA type="linear" slope="0.25"/>
-      </feComponentTransfer>
+    <!-- Soft premium glow -->
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
+      <feOffset dx="0" dy="2" result="offsetBlur"/>
       <feMerge>
-        <feMergeNode/>
+        <feMergeNode in="offsetBlur"/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
   </defs>
 
-  <!-- Wordmark Text -->
   <text
     x="0"
-    y="50"
+    y="55"
     font-family="Inter, Arial, sans-serif"
     font-weight="800"
-    font-size="48"
-    letter-spacing="0.02em"
-    fill="url(#goldWhite)"
-    filter="url(#softShadow)"
+    font-size="50"
+    fill="url(#goldshift)"
+    filter="url(#softGlow)"
   >
     Aiexor
   </text>
-
 </svg>
-      
