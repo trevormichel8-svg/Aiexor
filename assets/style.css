@@ -1,0 +1,4 @@
+
+:root { --goldshift: linear-gradient(to right,#FFD700,#FFB300,#00E6D1,#00C4FF); }
+body { background:#050505;color:white;font-family:Arial; }
+h1 { background:var(--goldshift);-webkit-background-clip:text;color:transparent;font-size:44px; }
