@@ -1,188 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Aiexor — V3 OMEGA AI Logo Generator</title>
+<title>Aiexor — V3 OMEGA AI Logo Generator</title>
 
-  <!-- Basic SEO -->
-  <meta name="description"
-        content="Aiexor V3 OMEGA AI Logo Generator — premium chrome, holographic, neon, plasma and 3D logo effects with PNG, SVG and 4K export." />
+<link rel="stylesheet" href="logo-style.css" />
+<link rel="icon" type="image/png" href="favicon.png" />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Aiexor — V3 OMEGA AI Logo Generator" />
-  <meta property="og:description"
-        content="Create futuristic AI-style logos featuring chrome, plasma, gold, neon and holographic effects. Export in PNG, transparent PNG, 4K and SVG." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://aiexor.com/logo-generator.html" />
+<meta name="description"
+  content="Aiexor V3 OMEGA AI Logo Generator — 24K gold, turquoise aura, chrome, holographic, neon, plasma glow, 3D depth, SVG/4K export, and monetization." />
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Aiexor — V3 OMEGA AI Logo Generator" />
-  <meta name="twitter:description"
-        content="Aiexor's elite AI logo generator with chrome, hologram, neon, 4K and SVG export features." />
+<!-- Social -->
+<meta property="og:title" content="Aiexor — V3 OMEGA AI Logo Generator" />
+<meta property="og:description"
+  content="Generate premium AI-grade logos with chrome, hologram, gold, neon, plasma, 3D text FX & full export suite." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aiexor.com/logo-generator.html" />
 
-  <!-- JSON-LD SoftwareApplication -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Aiexor V3 OMEGA Logo Generator",
-    "applicationCategory": "DesignApplication",
-    "operatingSystem": "Any",
-    "creator": {
-      "@type": "Person",
-      "name": "Trevor Michel"
-    },
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "CAD"
-    }
-  }
-  </script>
+<meta name="twitter:card" content="summary_large_image" />
 
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" type="image/png" href="favicon.png" />
 </head>
-
 <body>
-  <header class="hero">
-    <div class="hero-inner">
-      <h1 class="hero-title gradient-text">
-        Aiexor — V3 OMEGA AI Logo Generator
-      </h1>
-      <p class="hero-subtitle">
-        Chrome · Holographic · Plasma · 3D Depth · Gradient FX · 4K &amp; SVG Export · Monetized &amp; SEO-Optimized
-      </p>
-    </div>
-  </header>
 
-  <main class="layout">
-    <!-- CONTROL PANEL -->
-    <section class="panel controls">
-      <h2>⚡ Logo Settings</h2>
+<header class="header">
+  <h1 class="title gradient">Aiexor — V3 OMEGA Logo Generator</h1>
+  <p class="subtitle">Premium AI-grade branding • 24K Gold • Turquoise Aura • Chrome • Holographic • 3D FX</p>
 
-      <label class="field-label">Brand Name</label>
-      <input id="brandInput" class="field-input" placeholder="Aiexor, NovaAI, FluxCloud…" />
+  <a href="index.html" class="back-btn">← Back to Aiexor.com</a>
+</header>
 
-      <label class="field-label">Tagline (optional)</label>
-      <input id="taglineInput" class="field-input" placeholder="Short, clean tagline under the logo" />
+<main class="container">
 
-      <label class="field-label">Logo Style</label>
-      <select id="styleInput" class="field-input">
-        <option value="gold">24K Gold</option>
-        <option value="turquoise">Turquoise Aura</option>
-        <option value="hybrid">Gold · White · Turquoise Mix</option>
-        <option value="neon">Neon Pink & Blue</option>
-        <option value="chrome">Chrome Metallic</option>
-        <option value="holo">Holographic Spectrum</option>
-        <option value="plasma">Plasma Glow</option>
-        <option value="matte">Matte Black</option>
-        <option value="gem">Sapphire Gemstone</option>
-        <option value="cyber">Cyberpunk Grid</option>
-      </select>
+  <!-- LEFT CONTROL PANEL -->
+  <section class="panel">
+    <h2>⚡ Logo Settings</h2>
 
-      <label class="field-label">AI Text Effect</label>
-      <select id="fxInput" class="field-input">
-        <option value="none">None</option>
-        <option value="curve">Curved Text</option>
-        <option value="emboss">Embossed Surface</option>
-        <option value="depth">3D Depth</option>
-        <option value="metal">Metallic Shine</option>
-        <option value="shadowed">Soft Shadow</option>
-      </select>
+    <label>Brand Name</label>
+    <input id="brandInput" placeholder="Aiexor, NovaAI, FluxCloud…" />
 
-      <label class="field-label">Background Mode</label>
-      <select id="bgInput" class="field-input">
-        <option value="dark">Dark Glow Gradient</option>
-        <option value="glow">Ambient Halo Mode</option>
-        <option value="transparent">Transparent (for overlays)</option>
-      </select>
+    <label>Tagline</label>
+    <input id="taglineInput" placeholder="optional tagline…" />
 
-      <button class="btn primary" id="generateBtn" onclick="generateLogo()">
-        ⚙️ Generate Logo
-      </button>
+    <label>Logo Style</label>
+    <select id="styleInput">
+      <option value="gold">24K Gold</option>
+      <option value="turquoise">Turquoise Aura</option>
+      <option value="hybrid">Gold / White / Turquoise Hybrid</option>
+      <option value="neon">Neon Pink / Blue</option>
+      <option value="chrome">Chrome Metallic</option>
+      <option value="holo">Holographic Spectrum</option>
+      <option value="plasma">Plasma Glow</option>
+      <option value="matte">Matte Black</option>
+      <option value="gem">Gemstone Sapphire</option>
+      <option value="cyber">Cyberpunk Grid</option>
+    </select>
 
-      <p class="hint">
-        Tip: Best results come from 4–10 letter names (clean visual energy).
-      </p>
-    </section>
+    <label>AI Text Effect</label>
+    <select id="fxInput">
+      <option value="none">None</option>
+      <option value="curve">Curved Text</option>
+      <option value="emboss">Embossed</option>
+      <option value="depth">3D Depth</option>
+      <option value="metal">Metallic Shine</option>
+      <option value="shadowed">Soft Shadow</option>
+    </select>
 
-    <!-- PREVIEW PANEL -->
-    <section class="panel preview">
-      <div class="preview-header">
-        <h2>✨ Live Logo Preview</h2>
-        <span class="status-pill" id="statusPill">Ready</span>
-      </div>
+    <label>Background</label>
+    <select id="bgInput">
+      <option value="dark">Dark Glow</option>
+      <option value="halo">Halo Gradient</option>
+      <option value="transparent">Transparent</option>
+    </select>
 
-      <div class="canvas-wrap">
-        <canvas id="logoCanvas" width="1600" height="450"></canvas>
-      </div>
+    <button onclick="generateLogo()" class="gen-btn">⚙️ Generate Logo</button>
 
-      <div class="download-row">
-        <button class="btn" onclick="downloadPNG()">PNG</button>
-        <button class="btn" onclick="downloadTransparent()">Transparent PNG</button>
-        <button class="btn" onclick="download4K()">4K PNG</button>
-        <button class="btn" onclick="downloadSVG()">SVG</button>
-        <button class="btn" onclick="downloadSocial()">Social Pack</button>
-      </div>
-
-      <p class="hint">
-        Social Pack includes 1080×540, 1200×630, and 1500×750 — optimized for Twitter, LinkedIn & pitch decks.
-      </p>
-    </section>
-  </main>
-
-  <!-- MONETIZATION -->
-  <section class="panel monetization">
-    <h2>🔥 Monetization Layer</h2>
-    <p class="hint">These cards are built-in revenue points — plug in affiliate links, digital products, or ads.</p>
-
-    <div class="monetization-grid">
-      <a class="cta-card" href="#" target="_blank">
-        <span class="cta-label">Affiliate</span>
-        <h3>AI Startup Name Generator</h3>
-        <p>Perfect cross-sell for founders using this logo tool.</p>
-      </a>
-
-      <a class="cta-card" href="#" target="_blank">
-        <span class="cta-label">Digital Product</span>
-        <h3>Premium Logo Mockup Pack</h3>
-        <p>Sell mockups for app icons, decks, websites and brand kits.</p>
-      </a>
-
-      <a class="cta-card" href="#" target="_blank">
-        <span class="cta-label">Branding Services</span>
-        <h3>Custom Logo Refinement</h3>
-        <p>Offer 1-on-1 logo enhancements or full brand identity kits.</p>
-      </a>
-    </div>
-
-    <div class="ad-slot">
-      <p>Ad Slot (paste your AdSense code here)</p>
-    </div>
+    <p class="note">Tip: Short names (4–8 chars) produce the strongest branding.</p>
   </section>
 
-  <footer class="site-footer">
-    <div class="footer-top">
-      <div>
-        <h3 class="footer-logo">AIEXOR</h3>
-        <p class="footer-tagline">Premium AI brand domain with built-in creative tools.</p>
-      </div>
-      <div class="footer-links">
-        <a href="/">Main website</a>
-        <a href="/best-ai-domains-2025.html">Best AI Domains 2025</a>
-        <a href="/ai-brand-name-guide.html">AI Brand Name Guide</a>
-        <a href="/ai-domain-investing-guide.html">AI Domain Investing</a>
-      </div>
-    </div>
-    <p class="footer-meta">
-      © 2025 Aiexor.com · Built by Trevor Michel · Registered at Dynadot.
-    </p>
-  </footer>
+  <!-- PREVIEW SECTION -->
+  <section class="preview">
+    <h2>✨ Live Preview</h2>
+    <canvas id="logoCanvas" width="1600" height="500"></canvas>
 
-  <script src="script.js"></script>
+    <div class="downloads">
+      <button onclick="downloadPNG()">PNG</button>
+      <button onclick="downloadTransparent()">Transparent PNG</button>
+      <button onclick="download4K()">4K PNG</button>
+      <button onclick="downloadSVG()">SVG</button>
+      <button onclick="downloadSocial()">Social Pack</button>
+    </div>
+
+    <p class="note">Social Pack exports Twitter, LinkedIn & deck sizes.</p>
+  </section>
+
+</main>
+
+<!-- MONETIZATION -->
+<section class="monetize">
+  <h2>🔥 Monetization Blocks</h2>
+
+  <div class="monetize-grid">
+    <a class="m-card" href="#" target="_blank">
+      <span>Affiliate Tool</span>
+      <h3>AI Startup Name Generator</h3>
+      <p>Great cross-sell for users who need a matching brand name.</p>
+    </a>
+
+    <a class="m-card" href="#" target="_blank">
+      <span>Digital Pack</span>
+      <h3>Premium Logo Mockups</h3>
+      <p>Sell mockup bundles for websites, apps, and pitch decks.</p>
+    </a>
+
+    <a class="m-card" href="#" target="_blank">
+      <span>Branding Service</span>
+      <h3>Custom Logo Upgrade</h3>
+      <p>Offer 1-on-1 logo enhancement and branding packages.</p>
+    </a>
+  </div>
+
+  <div class="adsense-slot">
+    <!-- Paste your AdSense code here -->
+    <p>Ad Slot — Ready for AdSense</p>
+  </div>
+</section>
+
+<script src="logo-script.js"></script>
 </body>
 </html>
