@@ -3,130 +3,360 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aiexor — AI Logo Generator (V3 Omega)</title>
 
-<title>Aiexor — V3 OMEGA AI Logo Generator</title>
+<meta name="description" content="Generate premium AI-style logos with gold, turquoise, holographic, neon, chrome and 3D text effects. Built into the Aiexor brand ecosystem." />
 
-<link rel="stylesheet" href="logo-style.css" />
-<link rel="icon" type="image/png" href="favicon.png" />
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" type="image/png" href="favicon.png">
 
-<meta name="description"
-  content="Aiexor V3 OMEGA AI Logo Generator — 24K gold, turquoise aura, chrome, holographic, neon, plasma glow, 3D depth, SVG/4K export, and monetization." />
+<style>
+/* ---------------------------
+   A I E X O R  T H E M E
+----------------------------*/
+body {
+  background: #050505;
+  color: #eaeaea;
+  font-family: Inter, sans-serif;
+  margin:0;
+  padding:0;
+}
 
-<!-- Social -->
-<meta property="og:title" content="Aiexor — V3 OMEGA AI Logo Generator" />
-<meta property="og:description"
-  content="Generate premium AI-grade logos with chrome, hologram, gold, neon, plasma, 3D text FX & full export suite." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://aiexor.com/logo-generator.html" />
+.header {
+  text-align:center;
+  padding:60px 20px 30px;
+}
 
-<meta name="twitter:card" content="summary_large_image" />
+.header h1 {
+  font-size:44px;
+  font-weight:800;
+  background: linear-gradient(90deg, #ffcc66, #3fd0c9);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.header p {
+  opacity:0.8;
+  margin-top:10px;
+  font-size:18px;
+}
+
+.container {
+  max-width:1200px;
+  margin:0 auto;
+  padding:20px;
+}
+
+.panel {
+  background:#0d0d0d;
+  padding:24px;
+  border-radius:18px;
+  margin-bottom:32px;
+  box-shadow:0 0 20px rgba(0,0,0,0.4);
+  border:1px solid #111;
+}
+
+.panel h2 {
+  margin-bottom:16px;
+  font-size:22px;
+  background: linear-gradient(90deg, #ffdd88, #32d2ce);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.field-label {
+  font-weight:600;
+  margin:8px 0 4px;
+  display:block;
+}
+
+.field-input, select {
+  width:100%;
+  padding:12px;
+  background:#1a1a1a;
+  border:1px solid #222;
+  border-radius:8px;
+  color:white;
+  margin-bottom:14px;
+}
+
+.btn {
+  padding:14px 20px;
+  border-radius:50px;
+  font-weight:600;
+  cursor:pointer;
+  border:none;
+  margin:6px 4px;
+}
+
+.btn-primary {
+  background:linear-gradient(90deg, #ffcc66, #3fd0c9);
+  color:#000;
+}
+
+.btn-outline {
+  border:1px solid #3fd0c9;
+  color:#3fd0c9;
+  background:none;
+}
+
+.canvas-wrap {
+  background:#000;
+  padding:30px;
+  border-radius:16px;
+  text-align:center;
+}
+
+canvas {
+  max-width:100%;
+}
+.download-row {
+  margin-top:20px;
+}
+.download-row .btn {
+  background:#111;
+  border:1px solid #444;
+  color:white;
+}
+
+/* CTA Section */
+.monetization {
+  text-align:center;
+  margin-top:40px;
+}
+.monetization h2 {
+  background:linear-gradient(90deg, #ffdd88, #32d2ce);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.monetization p {
+  opacity:0.8;
+}
+
+.cta-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+  margin-top:20px;
+}
+.cta-card {
+  background:#0f0f0f;
+  padding:20px;
+  border-radius:12px;
+  border:1px solid #1c1c1c;
+  transition:0.3s;
+  text-decoration:none;
+  color:white;
+}
+.cta-card:hover {
+  transform:translateY(-4px);
+  border-color:#3fd0c9;
+}
+
+.footer {
+  padding:40px;
+  text-align:center;
+  opacity:0.7;
+  margin-top:60px;
+}
+</style>
 
 </head>
 <body>
 
-<header class="header">
-  <h1 class="title gradient">Aiexor — V3 OMEGA Logo Generator</h1>
-  <p class="subtitle">Premium AI-grade branding • 24K Gold • Turquoise Aura • Chrome • Holographic • 3D FX</p>
+<div class="header">
+  <h1>Aiexor V3 Omega — AI Logo Generator</h1>
+  <p>Create premium AI-styled brand logos using gold, turquoise, chrome, neon, hologram and 3D text effects.</p>
+</div>
 
-  <a href="index.html" class="back-btn">← Back to Aiexor.com</a>
-</header>
+<div class="container">
 
-<main class="container">
+  <!-- SETTINGS -->
+  <div class="panel">
+    <h2>Logo Settings</h2>
 
-  <!-- LEFT CONTROL PANEL -->
-  <section class="panel">
-    <h2>⚡ Logo Settings</h2>
+    <label class="field-label">Brand Name</label>
+    <input id="brandInput" class="field-input" placeholder="Aiexor, NovaAI, Fluxor…">
 
-    <label>Brand Name</label>
-    <input id="brandInput" placeholder="Aiexor, NovaAI, FluxCloud…" />
+    <label class="field-label">Tagline</label>
+    <input id="taglineInput" class="field-input" placeholder="Optional tagline">
 
-    <label>Tagline</label>
-    <input id="taglineInput" placeholder="optional tagline…" />
-
-    <label>Logo Style</label>
+    <label class="field-label">Style</label>
     <select id="styleInput">
       <option value="gold">24K Gold</option>
       <option value="turquoise">Turquoise Aura</option>
-      <option value="hybrid">Gold / White / Turquoise Hybrid</option>
-      <option value="neon">Neon Pink / Blue</option>
+      <option value="hybrid">Gold + Turquoise Hybrid</option>
       <option value="chrome">Chrome Metallic</option>
+      <option value="neon">Neon Pink / Blue</option>
       <option value="holo">Holographic Spectrum</option>
       <option value="plasma">Plasma Glow</option>
       <option value="matte">Matte Black</option>
       <option value="gem">Gemstone Sapphire</option>
-      <option value="cyber">Cyberpunk Grid</option>
     </select>
 
-    <label>AI Text Effect</label>
+    <label class="field-label">Text FX</label>
     <select id="fxInput">
       <option value="none">None</option>
-      <option value="curve">Curved Text</option>
-      <option value="emboss">Embossed</option>
       <option value="depth">3D Depth</option>
-      <option value="metal">Metallic Shine</option>
-      <option value="shadowed">Soft Shadow</option>
+      <option value="emboss">Emboss</option>
+      <option value="metallic">Metallic Shine</option>
+      <option value="curve">Curved Text</option>
+      <option value="shadow">Soft Shadow</option>
     </select>
 
-    <label>Background</label>
-    <select id="bgInput">
-      <option value="dark">Dark Glow</option>
-      <option value="halo">Halo Gradient</option>
-      <option value="transparent">Transparent</option>
-    </select>
+    <button class="btn btn-primary" onclick="generateLogo()">Generate Logo</button>
+  </div>
 
-    <button onclick="generateLogo()" class="gen-btn">⚙️ Generate Logo</button>
-
-    <p class="note">Tip: Short names (4–8 chars) produce the strongest branding.</p>
-  </section>
-
-  <!-- PREVIEW SECTION -->
-  <section class="preview">
-    <h2>✨ Live Preview</h2>
-    <canvas id="logoCanvas" width="1600" height="500"></canvas>
-
-    <div class="downloads">
-      <button onclick="downloadPNG()">PNG</button>
-      <button onclick="downloadTransparent()">Transparent PNG</button>
-      <button onclick="download4K()">4K PNG</button>
-      <button onclick="downloadSVG()">SVG</button>
-      <button onclick="downloadSocial()">Social Pack</button>
+  <!-- PREVIEW -->
+  <div class="panel">
+    <h2>Live Preview</h2>
+    <div class="canvas-wrap">
+      <canvas id="logoCanvas" width="1600" height="450"></canvas>
     </div>
 
-    <p class="note">Social Pack exports Twitter, LinkedIn & deck sizes.</p>
-  </section>
-
-</main>
-
-<!-- MONETIZATION -->
-<section class="monetize">
-  <h2>🔥 Monetization Blocks</h2>
-
-  <div class="monetize-grid">
-    <a class="m-card" href="#" target="_blank">
-      <span>Affiliate Tool</span>
-      <h3>AI Startup Name Generator</h3>
-      <p>Great cross-sell for users who need a matching brand name.</p>
-    </a>
-
-    <a class="m-card" href="#" target="_blank">
-      <span>Digital Pack</span>
-      <h3>Premium Logo Mockups</h3>
-      <p>Sell mockup bundles for websites, apps, and pitch decks.</p>
-    </a>
-
-    <a class="m-card" href="#" target="_blank">
-      <span>Branding Service</span>
-      <h3>Custom Logo Upgrade</h3>
-      <p>Offer 1-on-1 logo enhancement and branding packages.</p>
-    </a>
+    <div class="download-row">
+      <button class="btn" onclick="downloadPNG()">PNG</button>
+      <button class="btn" onclick="downloadTransparent()">Transparent PNG</button>
+      <button class="btn" onclick="download4K()">4K PNG</button>
+      <button class="btn" onclick="downloadSVG()">SVG</button>
+    </div>
   </div>
 
-  <div class="adsense-slot">
-    <!-- Paste your AdSense code here -->
-    <p>Ad Slot — Ready for AdSense</p>
-  </div>
-</section>
+  <!-- MONETIZATION -->
+  <div class="monetization">
+    <h2>Aiexor Revenue Layer</h2>
+    <p>These links can generate passive income through affiliate or product integrations.</p>
 
-<script src="logo-script.js"></script>
+    <div class="cta-grid">
+      <a class="cta-card" href="#">
+        <h3>AI Startup Name Generator</h3>
+        <p>Strong synergy — people creating logos often need a name too.</p>
+      </a>
+      <a class="cta-card" href="#">
+        <h3>Premium Logo Mockup Pack</h3>
+        <p>Sell high-end mockups for presentations, websites and apps.</p>
+      </a>
+      <a class="cta-card" href="#">
+        <h3>Brand Kit Upgrade</h3>
+        <p>Offer paid 1:1 refinement or advanced brand-building services.</p>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  © 2025 Aiexor.com — Built by Trevor Michel
+</div>
+
+<script>
+// ----------------------------
+// SIMPLE CANVAS RENDER ENGINE
+// ----------------------------
+function generateLogo() {
+  const text = document.getElementById("brandInput").value || "Aiexor";
+  const tagline = document.getElementById("taglineInput").value || "";
+  const style = document.getElementById("styleInput").value;
+  const fx = document.getElementById("fxInput").value;
+
+  const canvas = document.getElementById("logoCanvas");
+  const ctx = canvas.getContext("2d");
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // Background
+  ctx.fillStyle = "#000";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  // Style gradients
+  let gradient;
+  if(style==="gold") gradient = ctx.createLinearGradient(0,0,1600,0),
+  gradient.addColorStop(0,"#ffcc66"),
+  gradient.addColorStop(1,"#ffe9b3");
+
+  if(style==="turquoise") gradient = ctx.createLinearGradient(0,0,1600,0),
+  gradient.addColorStop(0,"#3fd0c9"),
+  gradient.addColorStop(1,"#7fffd4");
+
+  if(style==="hybrid") gradient = ctx.createLinearGradient(0,0,1600,0),
+  gradient.addColorStop(0,"#ffcc66"),
+  gradient.addColorStop(0.5,"white"),
+  gradient.addColorStop(1,"#3fd0c9");
+
+  if(style==="chrome") gradient = ctx.createLinearGradient(0,0,1600,0),
+  gradient.addColorStop(0,"#ccc"),
+  gradient.addColorStop(1,"#fff");
+
+  if(style==="neon") gradient = ctx.createLinearGradient(0,0,1600,0),
+  gradient.addColorStop(0,"#ff00ff"),
+  gradient.addColorStop(1,"#00eaff");
+
+  if(style==="holo") gradient = ctx.createLinearGradient(0,0,1600,0),
+  gradient.addColorStop(0,"#ff8bf0"),
+  gradient.addColorStop(0.5,"#7cf3ff"),
+  gradient.addColorStop(1,"#ffef6e");
+
+  if(style==="plasma") gradient = ctx.createLinearGradient(0,0,1600,0),
+  gradient.addColorStop(0,"#ff004c"),
+  gradient.addColorStop(1,"#8b00ff");
+
+  if(style==="matte") gradient = "#d0d0d0";
+
+  if(style==="gem") gradient = ctx.createLinearGradient(0,0,1600,0),
+  gradient.addColorStop(0,"#3fa9f5"),
+  gradient.addColorStop(1,"#0048cc");
+
+  ctx.fillStyle = gradient;
+  ctx.font = "140px Inter";
+  ctx.textAlign = "center";
+
+  // Text FX
+  if(fx==="depth") {
+    ctx.shadowColor="rgba(0,0,0,0.7)";
+    ctx.shadowBlur=20;
+    ctx.shadowOffsetY=18;
+  }
+
+  if(fx==="emboss") {
+    ctx.shadowColor="rgba(255,255,255,0.3)";
+    ctx.shadowBlur=6;
+    ctx.shadowOffsetY=-4;
+  }
+
+  if(fx==="shadow") {
+    ctx.shadowColor="rgba(0,0,0,0.5)";
+    ctx.shadowBlur=10;
+  }
+
+  ctx.fillText(text,800,220);
+
+  // tagline
+  ctx.shadowBlur=0;
+  ctx.fillStyle="#fff";
+  ctx.font="50px Inter";
+  ctx.fillText(tagline,800,320);
+}
+
+function downloadPNG(){
+  const link=document.createElement("a");
+  link.download="aiexor-logo.png";
+  link.href=document.getElementById("logoCanvas").toDataURL();
+  link.click();
+}
+
+function downloadTransparent(){
+  alert("Transparent PNG export will be added in V3.1");
+}
+
+function download4K(){
+  alert("4K PNG export will be added in V3.1");
+}
+
+function downloadSVG(){
+  alert("SVG export will be added in V3.1");
+}
+</script>
+
 </body>
-</html>
+  </html>
+  
