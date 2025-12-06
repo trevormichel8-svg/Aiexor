@@ -1,1 +1,54 @@
+/* Font Variables */
+:root {
+  --font-space-grotesk: "Space Grotesk", sans-serif;
+  --font-inter: "Inter", sans-serif;
+}
 
+/* Global Styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #050505;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-inter);
+}
+
+/* Futuristic Gold Gradient */
+.gradient-gold {
+  background: linear-gradient(90deg, #f8d988 0%, #f4c14f 50%, #ffea9c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glow Pulse Animation */
+@keyframes glowPulse {
+  0% { text-shadow: 0 0 4px rgba(255,225,150,0.4); transform: scale(1); }
+  50% { text-shadow: 0 0 18px rgba(255,225,150,0.9); transform: scale(1.03); }
+  100% { text-shadow: 0 0 4px rgba(255,225,150,0.4); transform: scale(1); }
+}
+
+.glow-animate {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Glass / Blurred Panels */
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Section Padding */
+.section {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+/* Hide Scrollbars (Mobile-Friendly) */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+      }
