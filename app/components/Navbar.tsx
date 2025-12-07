@@ -18,6 +18,15 @@ export default function Navbar() {
     load();
   }, []);
 
+  async function handleLogout() {
+    await fetch("/api/logout", {
+      method: "POST",
+    });
+
+    // Redirect after logout
+    window.location.href = "/ai-logo";
+  }
+
   return (
     <nav
       className="w-full px-6 py-3 flex justify-between items-center"
@@ -26,7 +35,9 @@ export default function Navbar() {
         borderBottom: "1px solid rgba(64,224,208,0.25)",
       }}
     >
-      <Link href="/ai-logo" className="text-2xl font-bold"
+      <Link
+        href="/ai-logo"
+        className="text-2xl font-bold"
         style={{
           background: "linear-gradient(90deg, #FFD700, #40E0D0)",
           WebkitBackgroundClip: "text",
@@ -37,8 +48,12 @@ export default function Navbar() {
       </Link>
 
       <div className="flex items-center gap-6 text-gray-300">
-        <Link href="/ai-logo" className="hover:text-teal-400">Generate</Link>
-        <Link href="/my-logos" className="hover:text-teal-400">My Logos</Link>
+        <Link href="/ai-logo" className="hover:text-teal-400">
+          Generate
+        </Link>
+        <Link href="/my-logos" className="hover:text-teal-400">
+          My Logos
+        </Link>
 
         <div className="relative">
           <button
@@ -50,9 +65,22 @@ export default function Navbar() {
 
           {openMenu && (
             <div className="absolute right-0 mt-2 bg-gray-900 rounded shadow-md p-3 w-40 text-sm">
-              <Link href="/my-logos" className="block py-1 hover:text-teal-400">My Logos</Link>
-              <a href="https://billing.stripe.com/" className="block py-1 hover:text-teal-400">Billing</a>
-              <button className="block py-1 hover:text-red-400">
+              <Link href="/my-logos" className="block py-1 hover:text-teal-400">
+                My Logos
+              </Link>
+
+              <a
+                href="https://billing.stripe.com/"
+                className="block py-1 hover:text-teal-400"
+              >
+                Billing
+              </a>
+
+              {/* ✅ LOGOUT BUTTON ADDED HERE */}
+              <button
+                onClick={handleLogout}
+                className="block py-1 w-full text-left hover:text-red-400"
+              >
                 Logout
               </button>
             </div>
@@ -61,5 +89,4 @@ export default function Navbar() {
       </div>
     </nav>
   );
-          }
-            
+    }
