@@ -5,6 +5,10 @@
 :root {
   --font-space-grotesk: "Space Grotesk", sans-serif;
   --font-inter: "Inter", sans-serif;
+
+  /* Gold + Turquoise Premium Colors */
+  --gold: #ffd700;
+  --turquoise: #40e0d0;
 }
 
 /* Global Styles */
@@ -42,6 +46,8 @@ body {
   background: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 1rem;
 }
 
 /* Section Padding */
@@ -55,3 +61,90 @@ body {
   width: 0px;
   background: transparent;
 }
+
+/* ============================================================
+   SECTION 9 – NEW PREMIUM UI EFFECTS
+   ============================================================ */
+
+/* 9.1 – Fade-in Animation */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.7s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 9.2 – Fade-in Scale for Generated Logo */
+.fade-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  animation: fadeScale 0.5s ease-out forwards;
+}
+
+@keyframes fadeScale {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* 9.3 – Premium Gold–Turquoise Button Glow */
+.btn-glow {
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 0 10px rgba(64, 224, 208, 0.4);
+}
+
+.btn-glow:hover {
+  box-shadow: 0 0 18px rgba(64, 224, 208, 0.9);
+  transform: translateY(-2px);
+}
+
+/* 9.4 – Gradient Border Cards */
+.gradient-border {
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: 
+    linear-gradient(#111, #111) padding-box,
+    linear-gradient(90deg, var(--gold), var(--turquoise)) border-box;
+  padding: 1rem;
+}
+
+/* 9.5 – Skeleton Loader (Shimmer effect) */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255,255,255,0.05) 0%,
+    rgba(255,255,255,0.15) 50%,
+    rgba(255,255,255,0.05) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* 9.6 – Improved Mobile Spacing */
+@media (max-width: 768px) {
+  .section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+/* 9.7 – Subtle Divider Line */
+.divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(64, 224, 208, 0.4),
+    transparent
+  );
+  margin: 2rem 0;
+  }
+      
