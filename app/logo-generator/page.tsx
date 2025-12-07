@@ -1,8 +1,10 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import BuyCreditsModal from "@/components/BuyCreditsModal";
+import SubscribeModal from "@/components/SubscribeModal";
+import CreditsBar from "@/components/CreditsBar";
 
 export default function LogoGeneratorPage() {
   const [prompt, setPrompt] = useState("");
@@ -11,6 +13,10 @@ export default function LogoGeneratorPage() {
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState("");
   const [userData, setUserData] = useState<any>(null);
+
+  // Payment modals
+  const [showCredits, setShowCredits] = useState(false);
+  const [showSubscribe, setShowSubscribe] = useState(false);
 
   // -----------------------
   // LOAD USER DATA
@@ -72,9 +78,7 @@ export default function LogoGeneratorPage() {
   return (
     <div
       className="min-h-screen p-6 text-white"
-      style={{
-        background: "black",
-      }}
+      style={{ background: "black" }}
     >
       {/* HEADER */}
       <div className="text-center mb-10">
@@ -93,12 +97,26 @@ export default function LogoGeneratorPage() {
         <p className="text-gray-300 mt-2">
           Generate stunning AI logos with gold + turquoise gradients.
         </p>
+      </div>
 
-        {userData?.trial && (
-          <p className="mt-2 text-sm text-gray-400">
-            Free Trial Used: {userData.trial.used} / 3
-          </p>
-        )}
+      {/* CREDITS BAR */}
+      <CreditsBar user={userData} />
+
+      {/* BUY CREDITS + SUBSCRIBE BUTTONS */}
+      <div className="flex justify-center gap-4 mb-10">
+        <button
+          onClick={() => setShowCredits(true)}
+          className="px-5 py-2 rounded bg-yellow-500 font-bold shadow"
+        >
+          Buy Credits
+        </button>
+
+        <button
+          onClick={() => setShowSubscribe(true)}
+          className="px-5 py-2 rounded bg-teal-500 font-bold shadow"
+        >
+          Go PRO
+        </button>
       </div>
 
       {/* INPUT AREA */}
@@ -134,7 +152,9 @@ export default function LogoGeneratorPage() {
           <button
             onClick={() => setEngine("premium")}
             className={`px-4 py-2 rounded ${
-              engine === "premium" ? "bg-gradient-to-r from-yellow-400 to-teal-400" : "bg-gray-800"
+              engine === "premium"
+                ? "bg-gradient-to-r from-yellow-400 to-teal-400"
+                : "bg-gray-800"
             }`}
           >
             PREMIUM (5 credits)
@@ -187,8 +207,17 @@ export default function LogoGeneratorPage() {
       <div className="text-center mt-20 text-gray-500 text-sm">
         Powered by Aiexor — Hybrid AI Logo Engine
       </div>
+
+      {/* PAYMENT MODALS */}
+      <BuyCreditsModal
+        open={showCredits}
+        onClose={() => setShowCredits(false)}
+      />
+      <SubscribeModal
+        open={showSubscribe}
+        onClose={() => setShowSubscribe(false)}
+      />
     </div>
   );
 }
-
-    
+  
