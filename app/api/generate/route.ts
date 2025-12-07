@@ -2,11 +2,41 @@ import { NextResponse } from "next/server";
 import { createServerSupabase } from "@/lib/supabase";
 import { generateLogo } from "@/lib/ai-engines";
 
+// ------------------------------------
+// WATERMARK FUNCTION
+// ------------------------------------
+async function applyWatermark(base64Image: string) {
+  const sharp = (await import("sharp")).default;
+
+  const imageBuffer = Buffer.from(base64Image, "base64");
+
+  const watermarkSVG = Buffer.from(`
+    <svg width="800" height="200">
+      <text 
+        x="50%" y="50%" 
+        font-size="48"
+        font-family="Arial"
+        text-anchor="middle"
+        fill="rgba(255,255,255,0.22)">
+        A I E X O R
+      </text>
+    </svg>
+  `);
+
+  const watermarkedBuffer = await sharp(imageBuffer)
+    .composite([{ input: watermarkSVG, gravity: "center" }])
+    .png()
+    .toBuffer();
+
+  return watermarkedBuffer.toString("base64");
+}
+
 export async function POST(req: Request) {
   const supabase = createServerSupabase({ cookies: {} });
 
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: "Not logged in" }, { status: 401 });
+  if (!user) 
+    return NextResponse.json({ error: "Not logged in" }, { status: 401 });
 
   const body = await req.json();
   const { prompt, engine } = body;
@@ -46,9 +76,14 @@ export async function POST(req: Request) {
   }
 
   // -----------------------------
-  // GENERATE LOGO
+  // GENERATE LOGO (raw image)
   // -----------------------------
-  const img = await generateLogo({ engine, prompt });
+  const rawImage = await generateLogo({ engine, prompt });
+
+  // -----------------------------
+  // APPLY WATERMARK FOR PREVIEW
+  // -----------------------------
+  const watermarked = await applyWatermark(rawImage);
 
   // -----------------------------
   // SAVE GENERATION
@@ -57,7 +92,7 @@ export async function POST(req: Request) {
     .from("generations")
     .insert({
       user_id: user.id,
-      low_res_url: img,
+      low_res_url: watermarked, // store watermarked preview
       engine,
       prompt,
     })
@@ -69,7 +104,10 @@ export async function POST(req: Request) {
   // -----------------------------
   if (!subscription?.active) {
     if (trial?.used < trialLimit) {
-      await supabase.from("trials").update({ used: trial.used + 1 }).eq("user_id", user.id);
+      await supabase
+        .from("trials")
+        .update({ used: trial.used + 1 })
+        .eq("user_id", user.id);
     } else {
       await supabase
         .from("credits")
@@ -84,5 +122,4 @@ export async function POST(req: Request) {
     success: true,
     generation,
   });
-}
-  
+         }
