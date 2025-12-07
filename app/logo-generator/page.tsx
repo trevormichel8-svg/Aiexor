@@ -14,7 +14,6 @@ export default function LogoGeneratorPage() {
   const [error, setError] = useState("");
   const [userData, setUserData] = useState<any>(null);
 
-  // Payment modals
   const [showCredits, setShowCredits] = useState(false);
   const [showSubscribe, setShowSubscribe] = useState(false);
 
@@ -35,6 +34,7 @@ export default function LogoGeneratorPage() {
 
     setLoading(true);
     setError("");
+    setResult(null);
 
     const res = await fetch("/api/generate", {
       method: "POST",
@@ -75,19 +75,17 @@ export default function LogoGeneratorPage() {
 
   return (
     <div
-      className="min-h-screen p-4 md:p-6 text-white"
+      className="min-h-screen p-4 md:p-6 text-white fade-in"
       style={{ background: "black" }}
     >
-
       {/* HEADER */}
       <div className="text-center mb-10">
         <h1
-          className="text-5xl font-extrabold"
+          className="text-5xl font-extrabold glow-animate"
           style={{
             background: "linear-gradient(90deg, #FFD700, #40E0D0)",
             WebkitBackgroundClip: "text",
             color: "transparent",
-            textShadow: "0 0 25px #40E0D0",
           }}
         >
           Aiexor – AI Logo Generator
@@ -101,25 +99,25 @@ export default function LogoGeneratorPage() {
       {/* CREDITS BAR */}
       <CreditsBar user={userData} />
 
-      {/* BUY CREDITS + SUBSCRIBE BUTTONS */}
+      {/* BUY CREDITS + SUBSCRIBE */}
       <div className="flex justify-center gap-4 mb-10">
         <button
           onClick={() => setShowCredits(true)}
-          className="px-5 py-2 rounded bg-yellow-500 font-bold shadow"
+          className="px-5 py-2 rounded bg-yellow-500 font-bold shadow btn-glow"
         >
           Buy Credits
         </button>
 
         <button
           onClick={() => setShowSubscribe(true)}
-          className="px-5 py-2 rounded bg-teal-500 font-bold shadow"
+          className="px-5 py-2 rounded bg-teal-500 font-bold shadow btn-glow"
         >
           Go PRO
         </button>
       </div>
 
       {/* INPUT AREA */}
-      <div className="max-w-xl mx-auto mb-10">
+      <div className="max-w-xl mx-auto mb-10 glass p-6 rounded-xl">
         <input
           type="text"
           placeholder="Enter logo text (e.g., Aiexor Tech)"
@@ -133,7 +131,7 @@ export default function LogoGeneratorPage() {
           <button
             onClick={() => setEngine("basic")}
             className={`px-4 py-2 rounded ${
-              engine === "basic" ? "bg-teal-500" : "bg-gray-800"
+              engine === "basic" ? "bg-teal-500 btn-glow" : "bg-gray-800"
             }`}
           >
             BASIC (1 credit)
@@ -142,7 +140,7 @@ export default function LogoGeneratorPage() {
           <button
             onClick={() => setEngine("standard")}
             className={`px-4 py-2 rounded ${
-              engine === "standard" ? "bg-yellow-600" : "bg-gray-800"
+              engine === "standard" ? "bg-yellow-600 btn-glow" : "bg-gray-800"
             }`}
           >
             STANDARD (2 credits)
@@ -152,7 +150,7 @@ export default function LogoGeneratorPage() {
             onClick={() => setEngine("premium")}
             className={`px-4 py-2 rounded ${
               engine === "premium"
-                ? "bg-gradient-to-r from-yellow-400 to-teal-400"
+                ? "bg-gradient-to-r from-yellow-400 to-teal-400 btn-glow"
                 : "bg-gray-800"
             }`}
           >
@@ -164,25 +162,27 @@ export default function LogoGeneratorPage() {
         <button
           onClick={generateLogo}
           disabled={loading}
-          className="w-full mt-6 py-4 rounded font-bold"
+          className="w-full mt-6 py-4 rounded font-bold btn-glow"
           style={{
             background: "linear-gradient(90deg, #FFD700, #40E0D0)",
             color: "black",
-            boxShadow: "0 0 20px #40E0D0",
           }}
         >
           {loading ? (
-            <span className="animate-pulse text-teal-300">
-              Generating…
-            </span>
+            <span className="animate-pulse text-teal-300">Generating…</span>
           ) : (
             "Generate Logo"
           )}
         </button>
 
-        {/* BEAUTIFUL LOADING MESSAGE */}
+        {/* LOADING SHIMMER */}
         {loading && (
-          <div className="text-center mt-6 text-teal-400 animate-pulse">
+          <div className="mt-6 mx-auto max-w-sm h-48 skeleton rounded-lg"></div>
+        )}
+
+        {/* LOADING TEXT */}
+        {loading && (
+          <div className="text-center mt-4 text-teal-400 animate-pulse">
             Crafting your golden-turquoise masterpiece…
           </div>
         )}
@@ -192,29 +192,29 @@ export default function LogoGeneratorPage() {
 
       {/* RESULT AREA */}
       {result && (
-        <div className="text-center mt-12">
-          <h3 className="text-xl mb-4 text-gray-300">Generated Logo:</h3>
+        <div className="text-center mt-12 fade-scale">
+          <h3 className="text-xl mb-4 text-teal-400">Generated Logo:</h3>
 
           <img
             src={`data:image/jpeg;base64,${result.low_res_url}`}
-            className="mx-auto rounded shadow-lg max-w-sm"
+            className="mx-auto rounded shadow-lg max-w-sm fade-scale"
             alt="Generated Logo"
           />
 
+          {/* DOWNLOAD BUTTON */}
           <button
             onClick={downloadHD}
-            className="mt-6 px-6 py-3 rounded font-bold"
+            className="mt-6 px-6 py-3 rounded font-bold btn-glow"
             style={{
               background: "linear-gradient(90deg, #FFD700, #40E0D0)",
               color: "black",
-              boxShadow: "0 0 20px #40E0D0",
             }}
           >
             Download HD
           </button>
 
-          {/* SOCIAL SHARE + COPY */}
-          <div className="flex justify-center gap-4 mt-6 text-sm">
+          {/* SOCIAL SHARE */}
+          <div className="flex justify-center gap-4 mt-6 text-sm fade-in">
             <a
               href={`https://twitter.com/intent/tweet?text=Check out my AI-generated logo from Aiexor!&url=https://aiexor.com`}
               target="_blank"
@@ -241,21 +241,26 @@ export default function LogoGeneratorPage() {
         </div>
       )}
 
+      {/* DIVIDER */}
+      <div className="divider"></div>
+
       {/* HISTORY SECTION */}
       {userData?.history && userData.history.length > 0 && (
-        <div className="mt-16">
+        <div className="mt-16 fade-in">
           <h2 className="text-2xl font-bold mb-4 text-teal-400">
             Your Past Logos
           </h2>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {userData.history.map((h: any) => (
-              <div key={h.id} className="bg-gray-900 p-3 rounded shadow">
+              <div
+                key={h.id}
+                className="gradient-border rounded-xl p-2 fade-scale"
+              >
                 <img
                   src={`data:image/jpeg;base64,${h.low_res_url}`}
                   className="rounded"
                 />
-
                 <p className="text-gray-400 text-sm mt-1">
                   {new Date(h.created_at).toLocaleDateString()}
                 </p>
@@ -266,12 +271,15 @@ export default function LogoGeneratorPage() {
       )}
 
       {/* FOOTER */}
-      <div className="text-center mt-20 text-gray-500 text-sm">
+      <div className="text-center mt-20 text-gray-500 text-sm fade-in">
         Powered by Aiexor — Hybrid AI Logo Engine
       </div>
 
+      {/* PAYMENT MODALS */}
       <BuyCreditsModal open={showCredits} onClose={() => setShowCredits(false)} />
       <SubscribeModal open={showSubscribe} onClose={() => setShowSubscribe(false)} />
     </div>
   );
 }
+
+    
