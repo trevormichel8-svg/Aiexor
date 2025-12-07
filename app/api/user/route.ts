@@ -1,36 +1,38 @@
 import { NextResponse } from "next/server";
-import { createServerSupabase } from "@/lib/supabase";
+import { supabaseServer } from "@/lib/supabase";
 
-export async function GET(req: Request) {
-  const supabase = createServerSupabase({ cookies: {} });
-  const { data: { user } } = await supabase.auth.getUser();
+export async function GET() {
+  const user = await supabaseServer.auth.getUser();
+  if (!user.user) return NextResponse.json({ user: null });
 
-  if (!user) {
-    return NextResponse.json({ error: "Not logged in" }, { status: 401 });
-  }
-
-  const { data: credits } = await supabase
+  const { data: credits } = await supabaseServer
     .from("credits")
     .select("*")
-    .eq("user_id", user.id)
+    .eq("user_id", user.user.id)
     .single();
 
-  const { data: trial } = await supabase
+  const { data: trial } = await supabaseServer
     .from("trials")
     .select("*")
-    .eq("user_id", user.id)
+    .eq("user_id", user.user.id)
     .single();
 
-  const { data: subscription } = await supabase
+  const { data: sub } = await supabaseServer
     .from("subscriptions")
     .select("*")
-    .eq("user_id", user.id)
+    .eq("user_id", user.user.id)
     .single();
 
+  const { data: history } = await supabaseServer
+    .from("generations")
+    .select("*")
+    .eq("user_id", user.user.id)
+    .order("created_at", { ascending: false });
+
   return NextResponse.json({
-    user,
     credits,
     trial,
-    subscription,
+    subscription: sub,
+    history,
   });
-}
+    }
