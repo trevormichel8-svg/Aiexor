@@ -1,50 +1,74 @@
 import { NextResponse } from "next/server";
-import { createServerSupabase } from "@/lib/supabase";
+import { supabaseServer } from "@/lib/supabase";
+import Stripe from "stripe";
 
 export async function POST(req: Request) {
-  const supabase = createServerSupabase({ cookies: {} });
-
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return NextResponse.json({ error: "Not logged in" }, { status: 401 });
-
   const { genId } = await req.json();
 
-  const { data: generation } = await supabase
-    .from("generations")
+  const user = await supabaseServer.auth.getUser();
+  if (!user.user) return NextResponse.json({ error: "NOT_LOGGED_IN" });
+
+  const { data: trial } = await supabaseServer
+    .from("trials")
     .select("*")
-    .eq("id", genId)
+    .eq("user_id", user.user.id)
     .single();
 
-  const { data: credits } = await supabase
-    .from("credits")
-    .select("*")
-    .eq("user_id", user.id)
-    .single();
+  if (trial && trial.used < 3) {
+    return NextResponse.json({ error: "TRIAL_HD_BLOCKED" });
+  }
 
-  const { data: subscription } = await supabase
+  const { data: sub } = await supabaseServer
     .from("subscriptions")
     .select("*")
-    .eq("user_id", user.id)
+    .eq("user_id", user.user.id)
     .single();
 
-  if (!subscription?.active && (!credits || credits.credits_remaining <= 0)) {
-    return NextResponse.json({ error: "NO_PERMISSIONS" }, { status: 402 });
-  }
+  const pro = sub?.active === true;
 
-  const hd = generation.hd_url || generation.low_res_url;
+  let creditsToUse = 0;
 
-  if (!subscription?.active) {
-    await supabase
+  if (!pro) {
+    creditsToUse = 2; // HD always costs 2 credits unless PRO
+    const { data: credits } = await supabaseServer
       .from("credits")
-      .update({
-        credits_remaining: credits.credits_remaining - 1,
-      })
-      .eq("user_id", user.id);
+      .select("*")
+      .eq("user_id", user.user.id)
+      .single();
+
+    if ((credits?.credits ?? 0) < creditsToUse) {
+      return NextResponse.json({ error: "NO_CREDITS" });
+    }
+
+    await supabaseServer
+      .from("credits")
+      .update({ credits: credits.credits - creditsToUse })
+      .eq("user_id", user.user.id);
   }
+
+  // Fetch HD from Stability AI
+  const hdImage = await fetchHD(genId);
 
   return NextResponse.json({
     success: true,
-    url: hd,
+    url: `data:image/png;base64,${hdImage}`,
   });
+}
+
+async function fetchHD(genId: string) {
+  // You already have your Stability AI key
+  const resp = await fetch(
+    "https://api.stability.ai/v2beta/image-to-image/hd",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.STABILITY_KEY}`,
+      },
+      body: JSON.stringify({ genId }),
+    }
+  );
+
+  const json = await resp.json();
+  return json.result_b64;
 }
 
