@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -203,6 +204,29 @@ export default function LogoGeneratorPage() {
         </div>
       )}
 
+      {/* HISTORY SECTION (FIXED) */}
+      {userData?.history && userData.history.length > 0 && (
+        <div className="mt-16">
+          <h2 className="text-2xl font-bold mb-4 text-teal-400">
+            Your Past Logos
+          </h2>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {userData.history.map((h: any) => (
+              <div key={h.id} className="bg-gray-900 p-3 rounded shadow">
+                <img
+                  src={`data:image/jpeg;base64,${h.low_res_url}`}
+                  className="rounded"
+                />
+                <p className="text-gray-400 text-sm mt-1">
+                  {new Date(h.created_at).toLocaleDateString()}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* FOOTER */}
       <div className="text-center mt-20 text-gray-500 text-sm">
         Powered by Aiexor — Hybrid AI Logo Engine
@@ -219,5 +243,5 @@ export default function LogoGeneratorPage() {
       />
     </div>
   );
-}
-  
+    }
+    
