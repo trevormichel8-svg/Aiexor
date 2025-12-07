@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -19,9 +18,7 @@ export default function LogoGeneratorPage() {
   const [showCredits, setShowCredits] = useState(false);
   const [showSubscribe, setShowSubscribe] = useState(false);
 
-  // -----------------------
   // LOAD USER DATA
-  // -----------------------
   useEffect(() => {
     async function loadUser() {
       const res = await fetch("/api/user");
@@ -78,9 +75,10 @@ export default function LogoGeneratorPage() {
 
   return (
     <div
-      className="min-h-screen p-6 text-white"
+      className="min-h-screen p-4 md:p-6 text-white"
       style={{ background: "black" }}
     >
+
       {/* HEADER */}
       <div className="text-center mb-10">
         <h1
@@ -173,8 +171,21 @@ export default function LogoGeneratorPage() {
             boxShadow: "0 0 20px #40E0D0",
           }}
         >
-          {loading ? "Generating..." : "Generate Logo"}
+          {loading ? (
+            <span className="animate-pulse text-teal-300">
+              Generating…
+            </span>
+          ) : (
+            "Generate Logo"
+          )}
         </button>
+
+        {/* BEAUTIFUL LOADING MESSAGE */}
+        {loading && (
+          <div className="text-center mt-6 text-teal-400 animate-pulse">
+            Crafting your golden-turquoise masterpiece…
+          </div>
+        )}
 
         {error && <p className="mt-4 text-red-400 text-center">{error}</p>}
       </div>
@@ -201,10 +212,36 @@ export default function LogoGeneratorPage() {
           >
             Download HD
           </button>
+
+          {/* SOCIAL SHARE + COPY */}
+          <div className="flex justify-center gap-4 mt-6 text-sm">
+            <a
+              href={`https://twitter.com/intent/tweet?text=Check out my AI-generated logo from Aiexor!&url=https://aiexor.com`}
+              target="_blank"
+              className="text-teal-400 hover:text-yellow-400"
+            >
+              Share on Twitter
+            </a>
+
+            <a
+              href={`https://www.facebook.com/sharer/sharer.php?u=https://aiexor.com`}
+              target="_blank"
+              className="text-teal-400 hover:text-yellow-400"
+            >
+              Facebook
+            </a>
+
+            <button
+              onClick={() => navigator.clipboard.writeText(result.low_res_url)}
+              className="text-teal-400 hover:text-yellow-400"
+            >
+              Copy Image
+            </button>
+          </div>
         </div>
       )}
 
-      {/* HISTORY SECTION (FIXED) */}
+      {/* HISTORY SECTION */}
       {userData?.history && userData.history.length > 0 && (
         <div className="mt-16">
           <h2 className="text-2xl font-bold mb-4 text-teal-400">
@@ -218,6 +255,7 @@ export default function LogoGeneratorPage() {
                   src={`data:image/jpeg;base64,${h.low_res_url}`}
                   className="rounded"
                 />
+
                 <p className="text-gray-400 text-sm mt-1">
                   {new Date(h.created_at).toLocaleDateString()}
                 </p>
@@ -232,16 +270,8 @@ export default function LogoGeneratorPage() {
         Powered by Aiexor — Hybrid AI Logo Engine
       </div>
 
-      {/* PAYMENT MODALS */}
-      <BuyCreditsModal
-        open={showCredits}
-        onClose={() => setShowCredits(false)}
-      />
-      <SubscribeModal
-        open={showSubscribe}
-        onClose={() => setShowSubscribe(false)}
-      />
+      <BuyCreditsModal open={showCredits} onClose={() => setShowCredits(false)} />
+      <SubscribeModal open={showSubscribe} onClose={() => setShowSubscribe(false)} />
     </div>
   );
-    }
-    
+}
